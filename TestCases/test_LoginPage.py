@@ -7,7 +7,6 @@ import time
 from logging import Logger
 
 import pytest
-
 from Utilities.customAssertions import assert_with_screenshot
 from Utilities.customeLogger import LogGen
 from Utilities.readProperties import READCONFIG
@@ -40,52 +39,37 @@ def test_TC001_1_validcredentials(driver): # TC001 Verify login with valid crede
     assert_with_screenshot(driver=driver, actual=actual_title, expected=expected_title, message="Failed!!!!", screenshot_path="Screenshots/TC001.png")
     logger.info("Test case -TC001 Verify login with valid credentials (Admin / admin123) [Finished] ")
 
+
 @pytest.mark.Regression
-def test_TC001_2_Loginfailed(driver): # TC002 Verify login with invalid username
+@pytest.mark.parametrize("username,password,expected_error,screenshot_name,test_description",
+                        [
+                            (UserName,"shweta","Invalid credentials","TC02_invalid.png","TC002: Invalid username"),
+                            ("abcdes",Password,"Invalid credentials","TC03_invalid.png","TC003: Invalid Password"),
+                            ("abcde","wrong","Invalid credentialsa","TC04_invalid.png","TC003: Invalid Username & Password"),
+                            ("","","Required","TC05_invalid.png","TC005: Blank Password & Password")
+                        ]
+
+                        )
+def test_TC001_2_Loginfailed(driver,username,password,expected_error,screenshot_name,test_description): # TC002 Verify login with invalid username
     logger=LogGen.loggen()
-    logger.info("# TC002 Verify login with invalid username [Started]")
+    logger.info(f"{test_description} [Started]")
     driver=driver
     driver.get(BaseURL)
     driver.implicitly_wait(5)
 
     LP=LoginPage(driver)
-    LP.setUserName("shweta")
-    LP.setPassword(Password)
+    LP.setUserName(username)
+    LP.setPassword(password)
     LP.clickLogin()
     time.sleep(5)
 
-    logger.info("Test case - TC002 Verify login with invalid username [assertion]")
+    #logger.info("Test case - TC002 Verify login with invalid username [assertion]")
 
-    if "Invalid credentials" in driver.page_source:
+    if expected_error in driver.page_source:
         assert True
     else:
-        driver.save_screenshot("/Screenshots/TC002.png")
+        driver.save_screenshot(f"Screenshots/{screenshot_name}")
         assert False
 
-    logger.info("Test case- TC002 Verify login with invalid username [Completed] ")
-
-
-@pytest.mark.Sanity
-def test_TC001_3_Loginfailed(driver): # TC003 Verify login with invalid password
-    Logger =LogGen.loggen()
-    driver = driver
-    driver.get(BaseURL)
-    driver.implicitly_wait(5)
-
-    LP =LoginPage(driver)
-    LP.setUserName(UserName)
-    LP.setPassword("wrong")
-    LP.clickLogin()
-
-    if "Invalid credentials" in driver.page_source:
-        assert True
-    else:
-        time.sleep(5)
-        driver.save_screenshot("Screenshots/TC001_3.png")
-        assert False
-
-
-
-
-
+    #logger.info("Test case- TC002 Verify login with invalid username [Completed] ")
 
