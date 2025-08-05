@@ -7,7 +7,7 @@ from selenium.webdriver.edge.service import Service
 
 
 @pytest.fixture()
-def setup(browser):
+def driver(browser):
     if browser.lower() == "chrome":
         service = Service(executable_path="C:/Drivers/chromedriver-win64/chromedriver.exe")  # or pass executable_path
         driver = webdriver.Chrome(service=service)
