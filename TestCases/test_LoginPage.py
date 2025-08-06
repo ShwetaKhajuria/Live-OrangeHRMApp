@@ -19,7 +19,7 @@ UserName =READCONFIG.getapplicationuserid()
 Password= READCONFIG.getapplicationpassword()
 
 @pytest.mark.Sanity
-def test_TC001_1_validcredentials(driver): # TC001 Verify login with valid credentials (Admin / admin123)
+def test_TC001_validcredentials(driver): # TC001 Verify login with valid credentials (Admin / admin123)
     logger = LogGen.loggen()
 
     logger.info("Test case -TC001 Verify login with valid credentials (Admin / admin123) [started] ")
@@ -51,7 +51,7 @@ def test_TC001_1_validcredentials(driver): # TC001 Verify login with valid crede
                         ]
 
                         )
-def test_TC001_2_Loginfailed(driver,username,password,expected_error,screenshot_name,test_description): # TC002 - TC005
+def test_TC002_TC003_TC004_Loginfailed(driver,username,password,expected_error,screenshot_name,test_description): # TC002 - TC005
     logger = LogGen.loggen()
     logger.info(f"{test_description} [Started]")
     driver=driver

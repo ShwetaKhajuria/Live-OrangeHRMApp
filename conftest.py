@@ -1,8 +1,9 @@
-import pytest
+import time
 from selenium import webdriver
-from selenium.webdriver.chrome.service import Service as ChromeService
-from selenium.webdriver.edge.service import Service as EdgeService
 from selenium.webdriver.edge.service import Service
+from Utilities.readProperties import READCONFIG
+import pytest
+from PageObjects.LoginPage import LoginPage
 
 
 
@@ -20,6 +21,26 @@ def driver(browser):
     yield driver
     driver.quit()
 
+@pytest.fixture()
+def browser(request):
+    return request.config.getoption("--browser")
+
+@pytest.fixture()
+def login(driver):
+    BaseURL = READCONFIG.getapplicationurl()
+    UserName = READCONFIG.getapplicationuserid()
+    Password = READCONFIG.getapplicationpassword()
+    driver.get(BaseURL)
+    driver.implicitly_wait(5)
+    LP = LoginPage(driver)
+    LP.setUserName(UserName)
+    LP.setPassword(Password)
+    LP.clickLogin()
+    time.sleep(5)
+
+    yield driver
+    driver.quit()
+
 def pytest_addoption(parser):
     parser.addoption(
         "--browser",
@@ -28,9 +49,7 @@ def pytest_addoption(parser):
         help="Browser to run tests against"
     )
 
-@pytest.fixture()
-def browser(request):
-    return request.config.getoption("--browser")
+
 
 
 #************Pytest HTML Report *******************
