@@ -9,9 +9,11 @@ import time
 from PageObjects.DashboardPage import DashboardPage
 from Utilities.customAssertions import assert_with_screenshot
 from conftest import driver
+from selenium.webdriver.support.ui import WebDriverWait
+from selenium.webdriver.support import expected_conditions as EC
 
 
-def test_TC005_Dashboardheader(driver,login):    #TC005	 Verify user lands on Dashboard after login
+def test_TC006_Dashboardheader(driver,login):    #TC005	 Verify user lands on Dashboard after login
    driver=login
    driver.implicitly_wait(5)
    DP=DashboardPage(driver)
@@ -22,16 +24,15 @@ def test_TC005_Dashboardheader(driver,login):    #TC005	 Verify user lands on Da
        driver.save_screenshot("Screenshots/TC002_1.png")
        assert False
 
-def test_TC006_CheckLogout(driver,login): # TC006 Logout option should appear
+def test_TC007_CheckLogout(driver,login): # TC006 Logout option should appear
     driver=login
-    driver.implicitly_wait(5)
     dashboard = DashboardPage(driver)
     logout_text = dashboard.Logout_displayed()
     #print(f"Logout text returned: '{logout_text}'")
     assert logout_text == "Logout", "Logout option not displayed correctly"
 
 
-def test_TC007_Logout (driver,login):    # TC007  User is redirected to login page
+def test_TC008_Logout (driver,login):    # TC007  User is redirected to login page
     driver=login
     driver.implicitly_wait(5)
     LO=DashboardPage(driver)

@@ -1,4 +1,6 @@
 from selenium.webdriver.common.by import By
+from selenium.webdriver.common.utils import keys_to_typing
+
 
 #Add employee with mandatory fields	[Go to PIM > Add Employee > Fill mandatory fields > Save]	Employee added successfully
 
@@ -9,6 +11,10 @@ class PIM:
     Middlename_text ="//input[@placeholder='Middle Name']"
     Lastname_text = "//input[@placeholder='Last Name']"
     Save = "//button[@type='submit']"
+    create_login_details="//span[@class='oxd-switch-input oxd-switch-input--active --label-right']"
+    username='//*[@id="app"]/div[1]/div[2]/div[2]/div/div/form/div[1]/div[2]/div[3]/div/div[1]/div/div[2]/input'
+    password='//*[@id="app"]/div[1]/div[2]/div[2]/div/div/form/div[1]/div[2]/div[4]/div/div[1]/div/div[2]/input'
+    confirm_password ='//*[@id="app"]/div[1]/div[2]/div[2]/div/div/form/div[1]/div[2]/div[4]/div/div[2]/div/div[2]/input'
 
     def __init__(self,driver):
         self.driver=driver
@@ -30,6 +36,19 @@ class PIM:
 
     def click_Save_Emp(self):
         self.driver.find_element(By.XPATH,self.Save).click()
+
+    def login_detail_slidbar(self):
+        self.driver.find_element(By.XPATH,self.create_login_details).click()
+
+    def enter_username(self,username):
+        self.driver.find_element(By.XPATH,self.username).send_keys(username)
+
+    def enter_password(self,password):
+        self.driver.find_element(By.XPATH,self.password).send_keys(password)
+
+    def enter_confirmpassword(self,cpassword):
+        self.driver.find_element(By.XPATH,self.confirm_password).send_keys(cpassword)
+
 
 
 

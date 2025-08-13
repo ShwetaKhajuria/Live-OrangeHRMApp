@@ -1,5 +1,6 @@
 from selenium.webdriver.common.by import By
-
+from selenium.webdriver.support.ui import WebDriverWait
+from selenium.webdriver.support import expected_conditions as EC
 
 class DashboardPage:
     header_dashboard_xpath = "//h6[normalize-space()='Dashboard']"
@@ -19,7 +20,9 @@ class DashboardPage:
     def Logout_displayed(self):
         try:
             self.driver.find_element(By.XPATH, self.button_profile_xpath).click()
-            Logout_displayed = self.driver.find_element(By.XPATH, self.button_logout_xpath)
+            Logout_displayed = WebDriverWait(self.driver,10).until(
+                EC.visibility_of_element_located((By.XPATH, self.button_logout_xpath))
+            )
             return Logout_displayed.text
         except:
             return None

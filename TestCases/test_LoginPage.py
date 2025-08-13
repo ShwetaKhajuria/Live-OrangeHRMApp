@@ -51,7 +51,7 @@ def test_TC001_validcredentials(driver): # TC001 Verify login with valid credent
                         ]
 
                         )
-def test_TC002_TC003_TC004_Loginfailed(driver,username,password,expected_error,screenshot_name,test_description): # TC002 - TC005
+def test_TC002_TC003_TC004_TC005_Loginfailed(driver,username,password,expected_error,screenshot_name,test_description): # TC002 - TC005
     logger = LogGen.loggen()
     logger.info(f"{test_description} [Started]")
     driver=driver
