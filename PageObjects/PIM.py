@@ -15,6 +15,8 @@ class PIM:
     username='//*[@id="app"]/div[1]/div[2]/div[2]/div/div/form/div[1]/div[2]/div[3]/div/div[1]/div/div[2]/input'
     password='//*[@id="app"]/div[1]/div[2]/div[2]/div/div/form/div[1]/div[2]/div[4]/div/div[1]/div/div[2]/input'
     confirm_password ='//*[@id="app"]/div[1]/div[2]/div[2]/div/div/form/div[1]/div[2]/div[4]/div/div[2]/div/div[2]/input'
+    employee_name = '//*[@id="app"]/div[1]/div[2]/div[2]/div/div[1]/div[2]/form/div[1]/div/div[1]/div/div[2]/div/div/input'
+    search_button = "//button[@type='submit']"
 
     def __init__(self,driver):
         self.driver=driver
@@ -48,6 +50,15 @@ class PIM:
 
     def enter_confirmpassword(self,cpassword):
         self.driver.find_element(By.XPATH,self.confirm_password).send_keys(cpassword)
+
+    def enter_Employee_name(self,empname):
+        self.driver.find_element(By.XPATH,self.employee_name).send_keys(empname)
+
+    def click_search(self):
+        self.driver.find_element(By.XPATH,self.search_button).click()
+
+
+
 
 
 

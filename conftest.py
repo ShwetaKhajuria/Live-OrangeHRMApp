@@ -32,6 +32,7 @@ def login(driver):
     Password = READCONFIG.getapplicationpassword()
     driver.get(BaseURL)
     driver.implicitly_wait(5)
+    driver.maximize_window()
     LP = LoginPage(driver)
     LP.setUserName(UserName)
     LP.setPassword(Password)
